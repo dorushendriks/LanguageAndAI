@@ -33,7 +33,7 @@ class MainAnalysis:
         self.visualizer.visualize_proportional_splits_by_decade(train_data, test_data, validation_data)
 
         # Stratified K-Fold Split
-        train_folds, test_folds = self.preprocessor.stratified_kfold_split(self.data)
+        train_folds, test_folds = self.preprocessor.stratified_kfold_split()
         self.visualizer.visualize_stratified_kfold_splits(train_folds, test_folds)
 
         # Clean and tokenize the 'post' column, and apply TF-IDF transformation
@@ -42,6 +42,7 @@ class MainAnalysis:
 
         # Visualize top words by TF-IDF scores
         self.visualizer.visualize_top_words(tfidf_df)
+        return self
 
 # Example usage
 # data = pd.read_csv("birth_year.csv")
