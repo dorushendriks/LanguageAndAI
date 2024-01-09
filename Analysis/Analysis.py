@@ -17,8 +17,9 @@ class Analysis():
         '''
         print('Begin analysis')
         self.data = DataPreparation(data, max_features).run() # should then have preprocessed self.data split into train and test
-        self.modelCollection = ModelCollection([DecisionTreeRegressor(max_features='log2'),
-                                                RandomForestRegressor(n_estimators=10, random_state=42, n_jobs=-1),
+        self.modelCollection = ModelCollection([Heuristic(),
+                                                DecisionTreeRegressor(),
+                                                RandomForestRegressor(n_estimators=15, random_state=42, n_jobs=-1),
                                                 SVR(kernel='linear', verbose=True),
                                                 LinearRegression(n_jobs=-1)],
                                                 self.data.get_feature_names_out()) 
@@ -43,14 +44,22 @@ class Analysis():
 
 # Example usage
         
-import time
-data = pd.read_csv("./Data/birth_year.csv")
-analysis = Analysis(data, max_features=1000)
+# import time
+# data = pd.read_csv("./Data/birth_year.csv")
+# analysis = Analysis(data, max_features=1000)
 
-start = time.time()
-analysis.run()
+# start = time.time()
+# analysis.run()
 
-time_ = time.time() - start
-minutes = time_ // 60
-seconds = time_ % 60
-print(f'It took {minutes:.0f} minutes and {seconds:.0f} seconds to run')
+# time_ = time.time() - start
+# minutes = time_ // 60
+# seconds = time_ % 60
+# print(f'It took {minutes:.0f} minutes and {seconds:.0f} seconds to run')
+
+
+# import pickle
+
+
+# fileObj = open('analysis.obj', 'wb')
+# pickle.dump(analysis,fileObj)
+# fileObj.close()

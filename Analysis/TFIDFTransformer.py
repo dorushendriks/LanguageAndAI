@@ -38,24 +38,26 @@ class TFIDFTransformer:
         tfidf_df = pd.DataFrame(tfidf_vectors.toarray(), columns=self.tfidf_vectorizer.get_feature_names_out())
         return tfidf_df
     
-    def drop_frequent_words_from_tfidf(tfidf_df, n):
+    def drop_frequent_words_from_tfidf(self, tfidf_df, n, most_frequent_words = False):
         """
         Drops the n most frequent words from the TF-IDF transformed DataFrame.
         
         :param tfidf_df: The DataFrame containing the TF-IDF vectors.
         :param n: The number of most frequent words to drop.
+        :param most_frequent_words: Either False or a list of words to drop
         :return: The TF-IDF DataFrame with the frequent words removed.
         """
         # Sum the TF-IDF scores for each word
         word_sums = tfidf_df.sum(axis=0).sort_values(ascending=False)
 
-        # Identify the n most frequent words
-        most_frequent_words = word_sums.head(n).index
+        if type(most_frequent_words) == bool:
+            # Identify the n most frequent words
+            most_frequent_words = word_sums.head(n).index
 
         # Drop these words from the TF-IDF DataFrame
         reduced_tfidf_df = tfidf_df.drop(most_frequent_words, axis=1)
 
-        return reduced_tfidf_df
+        return reduced_tfidf_df, most_frequent_words
 
 # Example usage
 # data = ... # Load or prepare your DataFrame

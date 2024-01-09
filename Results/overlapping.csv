@@ -1,5 +1,0 @@
-,DecisionTreeRegressor,RandomForestRegressor,SVR,LinearRegression
-DecisionTreeRegressor,,set(),set(),set()
-RandomForestRegressor,set(),,set(),set()
-SVR,set(),set(),,"{'gonna', 'think', 'certainly', 'wanna', 'old', 'ex', 'great', 'okay', 'country', 'might', 'just', 'honestly', 'totally', 'zero', 'all', 'content', 'years', 'also', 'recommend', 'wife', 'posts', '40', 'daughter', 'boyfriend', 'lmao', 'school', 'message', 'right', 'college', 'since', 'class', 'definitely', 'months', 'going', 'tho', 'lots', 'future', 'idk', 'beautiful', 'girl', 'there', 'several', 'because', 'yeah', 'not', 'parents', 'only', 'girls', 'business', 'jesus'}"
-LinearRegression,set(),set(),"{'gonna', 'think', 'certainly', 'wanna', 'old', 'ex', 'great', 'okay', 'country', 'might', 'just', 'honestly', 'totally', 'zero', 'all', 'content', 'years', 'also', 'recommend', 'wife', 'posts', '40', 'daughter', 'boyfriend', 'lmao', 'school', 'message', 'right', 'college', 'since', 'class', 'definitely', 'months', 'going', 'tho', 'lots', 'future', 'idk', 'beautiful', 'girl', 'there', 'several', 'because', 'yeah', 'not', 'parents', 'only', 'girls', 'business', 'jesus'}",

@@ -1,5 +1,0 @@
-,DecisionTreeRegressor,RandomForestRegressor,SVR,LinearRegression
-DecisionTreeRegressor,,0,0,0
-RandomForestRegressor,0,,0,0
-SVR,0,0,,50
-LinearRegression,0,0,50,

@@ -70,25 +70,30 @@ class ModelCollection():
         :param n:   The number of words to consider
         :returns:   A dataframe containing the most important words and their corresponding importances per model
         '''
-        feature_importances_dict = {'coefficient':np.array([]), 'words':np.array([]), 'model':np.array([])}
+        importances = pd.DataFrame(columns=['coefficient', 'words', 'model'])
         for model, name in zip(self.models, self.model_names):
+            feature_importances_dict = {'coefficient':np.array([]), 'words':np.array([]), 'model':np.array([])}
             match name:
-                case 'LinearRegressor':
-                    feature_importances = np.absolute(model.coef_)
+                case 'LinearRegression':
+                    feature_importances = np.absolute(model.coef_.flatten())
                 case 'SVR':
                     feature_importances = np.absolute(model.coef_.flatten())
                 case 'DecisionTreeRegressor' | 'RandomForestRegressor':
                     feature_importances = model.feature_importances_
+                case 'Heuristic':
+                    feature_importances = np.array([0]*925)
 
             feature_importances_dict['coefficient'] = np.concatenate((feature_importances_dict['coefficient'], feature_importances), axis=0)
-            feature_importances_dict['words']  = np.concatenate((feature_importances_dict['words'], self.feature_names), axis=0)
+            feature_importances_dict['words']  = np.concatenate((feature_importances_dict['words'], self.feature_names[:len(feature_importances)]), axis=0)
             feature_importances_dict['model']  = np.concatenate((feature_importances_dict['model'], [name]*len(feature_importances)), axis=0)
+            
+            feature_importances = pd.DataFrame(feature_importances_dict)
+            feature_importances = feature_importances.sort_values(by='coefficient', ascending=False, ignore_index=True).iloc[:n,:]
+            importances = pd.concat([importances, feature_importances])
 
-        feature_importances = pd.DataFrame(feature_importances_dict)
-        feature_importances = feature_importances.sort_values(by='coefficient', ascending=False, ignore_index=True)
-        feature_importances.to_csv('Results/feature_importances_per_model.csv')
+        importances.to_csv('Results/feature_importances_per_model.csv')
 
-        return feature_importances.iloc[:n,:]
+        return importances
     
     def overlapping_features(self, n:int):
         '''
@@ -129,3 +134,15 @@ class ModelCollection():
             importances_filtered = importances[importances['model'] == name]
             sns.barplot(data=importances_filtered, x='coefficient', y = 'words', orient='h')   
             plt.show()
+
+
+class Heuristic():
+    def __init__(self) -> None:
+        self.mean = None
+
+    def fit(self, X_train, y_train):
+        self.mean = y_train.mean()
+        return self
+    
+    def predict(self, X):
+        return [self.mean]*len(X)

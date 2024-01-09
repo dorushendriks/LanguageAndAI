@@ -1,0 +1,6 @@
+,Heuristic,DecisionTreeRegressor,RandomForestRegressor,SVR,LinearRegression
+Heuristic,,10,12,9,6
+DecisionTreeRegressor,10,,70,42,35
+RandomForestRegressor,12,70,,47,39
+SVR,9,42,47,,68
+LinearRegression,6,35,39,68,

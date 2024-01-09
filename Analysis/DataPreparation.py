@@ -40,10 +40,12 @@ class DataPreparation:
         print('Transforming the data')
         train_data = self.tfidf_transformer.clean_and_tokenize(train_data, 'post')
         self.X_train = self.tfidf_transformer.fit_transform(train_data)
+        self.X_train, words = self.tfidf_transformer.drop_frequent_words_from_tfidf(self.X_train, 75)
         self.y_train = train_data.birth_year
 
         test_data = self.tfidf_transformer.clean_and_tokenize(test_data, 'post')
         self.X_test = self.tfidf_transformer.transform(test_data)
+        self.X_test, _ = self.tfidf_transformer.drop_frequent_words_from_tfidf(self.X_test, 75, words)
         self.y_test = test_data.birth_year
 
         # Visualize top words by TF-IDF scores
